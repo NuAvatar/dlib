@@ -142,16 +142,13 @@ if (NOT TARGET dlib)
       elseif(APPLE) ############################################################################
          find_library(pthreadlib pthread)
          set (dlib_needed_libraries ${pthreadlib})
-
          if (NOT DLIB_NO_GUI_SUPPORT)
             find_library(xlib X11)
-            # Make sure X11 is in the include path.  Note that we look for
-            # Xlocale.h rather than Xlib.h because it avoids finding a partial
-            # copy of the X11 headers on systems with anaconda installed.
-            find_path(xlib_path Xlocale.h
+            # make sure X11 is in the include path
+            find_path(xlib_path NAMES Xlib.h Xlocale.h
                PATHS 
                /Developer/SDKs/MacOSX10.4u.sdk/usr/X11R6/include
-               /opt/local/include
+               /opt/X11/include
                PATH_SUFFIXES X11
                )
             if (xlib AND xlib_path)
